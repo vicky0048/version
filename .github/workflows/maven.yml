@@ -27,7 +27,7 @@ jobs:
 
     - name: Publish to JFrog Artifactory
       #run: mvn deploy
-      run: ls -lrth
+      run: cd target & ls -lrth
       
       env:
          registry: http://13.232.100.4:8081/artifactory/webapp/#/artifacts/browse/tree/General/libs-snapshot-local
