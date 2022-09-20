@@ -27,8 +27,8 @@ jobs:
 
     - name: Publish to JFrog Artifactory
       run: mvn deploy
-       env:
-         registry: <jfrog artifactory url>
+      env:
+         registry: http://13.232.100.4:8081/artifactory/webapp/#/artifacts/browse/tree/General/libs-snapshot-local
          username: ${{ secrets.JFROG_USERNAME }}
          password: ${{ secrets.JFROG_PASSWORD }}
          GITHUB_TOKEN: "${{ secrets.REPOSITORY_TOKEN }}"
