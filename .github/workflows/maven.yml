@@ -27,7 +27,7 @@ jobs:
 
     - name: Publish to JFrog Artifactory
       run: mvn deploy
-    - env:
+       env:
          registry: <jfrog artifactory url>
          username: ${{ secrets.JFROG_USERNAME }}
          password: ${{ secrets.JFROG_PASSWORD }}
