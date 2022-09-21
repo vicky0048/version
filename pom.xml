@@ -30,7 +30,14 @@
 	</dependencies>
 
 	<build>
-        <plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<finalName>springboot-images-new</finalName>
+		<plugins>
 		    <plugin>
 			    <artifactID>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
@@ -59,6 +66,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>	
+	</build>
 
 </project>
