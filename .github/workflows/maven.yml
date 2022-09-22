@@ -26,7 +26,7 @@ jobs:
       run: mvn clean install
 
     - name: Publish to JFrog Artifactory
-      run: curl -X PUT -u admin:admin@123 -T my.img "http://13.232.100.4:8081/artifactory/maven-repo/my.img"
+      run: cd target && curl -X PUT -u admin:admin@123 -T springboot-images-new.jar "http://13.232.100.4:8081/artifactory/maven-repo/springboot-images-new.jar"
       #uses: jfrog/setup-jfrog-cli@v2
 
       #env:
