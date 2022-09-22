@@ -26,9 +26,14 @@ jobs:
       run: mvn clean install
 
     - name: Publish to JFrog Artifactory
-      run: mvn deploy
+      #run: cd target && curl -X PUT -u admin:admin@123 -T springboot-images-new.jar "http://13.232.100.4:8081/artifactory/maven-repo/springboot-images-new.jar"
+      uses: jfrog/setup-jfrog-cli@v2
+
       env:
+         # JFrog platform url (for example: https://acme.jfrog.io)
+         #JF_URL: ${{ secrets.JF_URL }}
          registry: http://13.232.100.4:8081/artifactory/maven-repo
-         username: ${{ secrets.JFROG_USERNAME }}
-         password: ${{ secrets.JFROG_PASSWORD }}
-         GITHUB_TOKEN: "${{ secrets.REPOSITORY_TOKEN }}"
+         # Basic authentication credentials
+         JF_USER: ${{ secrets.JF_USER }}
+         JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
+         GITHUB_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
