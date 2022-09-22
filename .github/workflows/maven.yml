@@ -30,7 +30,8 @@ jobs:
 
       env:
          # JFrog platform url (for example: https://acme.jfrog.io)
-         JF_URL: ${{ secrets.JF_URL }}
+         #JF_URL: ${{ secrets.JF_URL }}
+         registry: http://13.232.100.4:8081/
          # Basic authentication credentials
          JF_USER: ${{ secrets.JF_USER }}
          JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
