@@ -27,7 +27,7 @@ jobs:
 
     - name: Publish to JFrog Artifactory
       #run: mvn deploy
-      run: cd target && curl -X PUT -u admin:admin@123 -T springboot-images-new.jar "http://13.232.100.4:8081//artifactory/libs-release-local/springboot-images-new.jar"
+      run: cd target && curl -X PUT -u admin:admin@123 -T springboot-images-new.jar "http://13.232.100.4:8081/artifactory/webapp/artifacts/browse/tree/General/libs-release-local/springboot-images-new.jar"
       
       env:
          registry: http://13.232.100.4:8081/artifactory/webapp/#/artifacts/browse/tree/General/libs-snapshot-local
