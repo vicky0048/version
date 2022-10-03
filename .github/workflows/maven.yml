@@ -25,5 +25,5 @@ jobs:
       run: mvn clean install
 
     - name: Publish to JFrog Artifactory
-      run: cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar "http://15.207.51.117:8081/artifactory/maven-repo/springboot-images-new.jar"
+      run: cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar "http://15.206.75.85:8081/artifactory/maven-repo/springboot-images-new.jar"
       #uses: jfrog/setup-jfrog-cli@v2
