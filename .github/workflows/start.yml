@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Emit repository_dispatch
-        uses: mvasigh/dispatch-action@main
+        uses: vicky0048/dispatch-action@main
         with:
           # You should create a personal access token and store it in your repository
           token: ${{ secrets.REPOSITORY_TOKEN }}
-          repo: other-repo
-          owner: mvasigh
+          repo: github-actions-poc
+          owner: vicky0048
           event_type: sample_push
