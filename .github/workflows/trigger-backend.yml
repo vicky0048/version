@@ -1,16 +1,16 @@
-name: Deploy
+name: Trigger-backend
 on:
   push:
     branches:
       - master
 jobs:
   build:
-    name: Run Web App
+    name: Trigger-backend
     runs-on: ubuntu-latest
     steps:
-      - name: Build Web App
+      - name: Trigger-backend
         run: |
-          echo "Build Web App"
+          echo "Trigger-backend"
           sleep 10s
       - uses: convictional/trigger-workflow-and-wait@v1.3.0
         with:
@@ -19,7 +19,7 @@ jobs:
           github_token: ${{ secrets.REPOSITORY_TOKEN }}
           workflow_file_name: maven.yml
           ref: master
-      - name: Deploy Web App
+      - name: Trigger-backend
         run: |
-          echo "Deploy Web App"
+          echo "Trigger-backend"
           sleep 10s
