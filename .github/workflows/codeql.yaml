@@ -22,7 +22,7 @@ jobs:
       run: mvn clean install
     
     - name: Scan with CodeQL
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2
       with:
         languages: java
-        force-run: true
+        #force-run: true
