@@ -24,7 +24,7 @@ jobs:
         java-version: 11
 
     - name: Build Spring Boot Application
-      run: ./mvn clean install
+      run: mvn clean install
 
     - name: Archive the Build Artifacts
       uses: actions/upload-artifact@v1
