@@ -1,51 +1,28 @@
-name: Spring Boot Build and CodeQL Scan
+name: Build and Scan with CodeQL
 
 on: 
   push:
-   branches: 
-    - master
-
-env:
-  SPRING_BOOT_APP_NAME: my-spring-boot-app
-  SPRING_BOOT_APP_VERSION: 1.0.0
-  CODEQL_QUERY_LANGUAGE: java
+    branches: 
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    
     - name: Setup Java
       uses: actions/setup-java@v1
       with:
         java-version: 11
-
-    - name: Build Spring Boot Application
+    
+    - name: Build with Maven
       run: mvn clean install
-
-    - name: Archive the Build Artifacts
-      uses: actions/upload-artifact@v1
+    
+    - name: Scan with CodeQL
+      uses: github/codeql-action/analyze@v2
       with:
-        name: ${{ env.SPRING_BOOT_APP_NAME }}-${{ env.SPRING_BOOT_APP_VERSION }}
-        path: target/${{ env.SPRING_BOOT_APP_NAME }}-${{ env.SPRING_BOOT_APP_VERSION }}.jar
-
-  codeql-scan:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Setup CodeQL
-      uses: github/codeql-action/setup-codeql@v1
-      with:
-        language: ${{ env.CODEQL_QUERY_LANGUAGE }}
-
-    - name: Analyze Code with CodeQL
-      uses: github/codeql-action/analyze@v1
-      with:
-        inputs: target/${{ env.SPRING_BOOT_APP_NAME }}-${{ env.SPRING_BOOT_APP_VERSION }}.jar
+        languages: java
+        force-run: true
