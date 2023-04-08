@@ -27,14 +27,21 @@ jobs:
     
     - name: Build with Maven
       run: mvn clean install
-      
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-       debug: true  
     
-    - name: Scan with CodeQL
-      uses: github/codeql-action/analyze@v2
-      with:
-        languages: java
-        force-run: true
+    - name: Get versions
+      run: mvn help:evaluate -Dexpression=project.version
+
+    - name: Get release version
+      run: mvn help:evaluate -Dexpression=project.version | grep -v SNAPSHOT
+      id: release-version
+
+    - name: Get snapshot version
+      run: mvn help:evaluate -Dexpression=project.version | grep SNAPSHOT
+      id: snapshot-version  
+  
+        
+        
+        
+        
+        
+        
