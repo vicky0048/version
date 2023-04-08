@@ -1,4 +1,4 @@
-name: Build and Scan with CodeQL
+name: Build maven project
 
 on: 
   push:
