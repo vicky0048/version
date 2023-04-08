@@ -18,6 +18,10 @@ jobs:
         language: ['java']
     
     steps:
+    - name: Print workflow number
+      run: |
+          echo "Workflow run number: ${{ github.run_number }}"
+          echo "Branch name: ${{ github.event.ref }}"
     - name: Checkout code
       uses: actions/checkout@v2
     
