@@ -26,7 +26,7 @@ jobs:
         java-version: 11
         
     - name: Increment version
-      run: mvn versions:set -DnewVersion=$(date +%Y%m%d%H%M%S)-SNAPSHOT   
+      run: mvn versions:set -DnewVersion=$(date +%H.%M.%S)-SNAPSHOT   
     
     - name: Build with Maven
       run: mvn clean install
