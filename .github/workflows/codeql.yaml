@@ -38,6 +38,27 @@ jobs:
     - name: Get snapshot version
       run: mvn help:evaluate -Dexpression=project.version | grep SNAPSHOT
       id: snapshot-version  
+      
+    - name: ser variable for backup folder
+      run: echo "R1=R1.0" >> $GITHUB_ENV
+    
+    - name: create directory
+      run: mkdir -p target/$R1
+      
+    - name: Get snapshot version
+      run: echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | grep SNAPSHOT) > snapshot.txt    
+      
+    - name: print snapshot version
+      run: |
+        echo "my-app-$(cat snapshot.txt).jar"
+        cp -r snapshot.txt target
+        
+    - name: current file
+      run: |
+       pwd
+       ls -lrth
+       cd target && ls -lrth
+     
   
         
         
