@@ -70,7 +70,10 @@ jobs:
        cd target && ls -lrth
        
     - name: create folder
-      run: mkdir 0.0.1
+      run: |
+        mkdir 0.0.1
+        ls -lrth
+      
   
         
         
