@@ -18,10 +18,10 @@ jobs:
         language: ['java']
     
     steps:
-    - name: Print workflow number
-      run: |
-          echo "Workflow run number: ${{ github.run_number }}"
-          echo "Branch name: ${{ github.event.ref }}"
+   # - name: Print workflow number
+   #   run: |
+   #       echo "Workflow run number: ${{ github.run_number }}"
+   #       echo "Branch name: ${{ github.event.ref }}"
     - name: Checkout code
       uses: actions/checkout@v2
     
@@ -30,8 +30,8 @@ jobs:
       with:
         java-version: 11
         
-    - name: Increment version
-      run: mvn versions:set -DnewVersion=$(date +%H.%M.%S)-SNAPSHOT   
+   # - name: Increment version
+   #   run: mvn versions:set -DnewVersion=$(date +%H.%M.%S)-SNAPSHOT   
     
     - name: Build with Maven
       run: mvn clean install
@@ -47,11 +47,11 @@ jobs:
       run: mvn help:evaluate -Dexpression=project.version | grep SNAPSHOT
       id: snapshot-version  
       
-    - name: ser variable for backup folder
-      run: echo "R1=R1.0" >> $GITHUB_ENV
+   # - name: ser variable for backup folder
+   #   run: echo "R1=R1.0" >> $GITHUB_ENV
     
-    - name: create directory
-      run: mkdir -p target/$R1
+   # - name: create directory
+   #   run: mkdir -p target/$R1
       
     - name: Get snapshot version
       run: echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | grep SNAPSHOT) > snapshot.txt    
