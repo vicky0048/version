@@ -60,7 +60,7 @@ jobs:
       
     - name: print snapshot version
       run: |
-        echo "$(cat snapshot.txt)"
+        echo "springboot-images-new$(cat snapshot.txt).jar"
         cp -r snapshot.txt target
         
     - name: current file
