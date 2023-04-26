@@ -30,7 +30,6 @@ jobs:
     - name: Use new version
       run: |
         echo "New version is ${{steps.version.outputs.new_version}}"
-        run: echo $CURRENT_VERSION
    # - name: Print workflow number
    #   run: |
    #       echo "Workflow run number: ${{ github.run_number }}"
