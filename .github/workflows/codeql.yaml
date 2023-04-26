@@ -63,6 +63,7 @@ jobs:
         echo "springboot-images-new-$(cat snapshot.txt).jar"
         mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
+        mv $(cat snapshot.txt) target
         ls -lrth
         
     - name: current file
