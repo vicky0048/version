@@ -66,6 +66,8 @@ jobs:
         mv $(cat snapshot.txt) target
         ls -lrth
         cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
+        mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
+        cd $(cat snapshot.txt) && ls -lrth
         ls -lrth
         
     - name: current file
