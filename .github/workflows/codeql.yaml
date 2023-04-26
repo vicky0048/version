@@ -60,7 +60,7 @@ jobs:
       
     - name: print snapshot version
       run: |
-        echo "my-app-$(cat snapshot.txt).jar"
+        echo "$(cat snapshot.txt)"
         cp -r snapshot.txt target
         
     - name: current file
