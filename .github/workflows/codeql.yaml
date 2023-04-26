@@ -68,13 +68,14 @@ jobs:
         cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
         mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
         cd $(cat snapshot.txt) && ls -lrth
-        ls -lrth
+        
         
     - name: current file
       run: |
        pwd
        ls -lrth
-       cd target && ls -lrth
+       cd target/$(cat snapshot.txt) && ls -lrth
+       pwd
        
     
       
