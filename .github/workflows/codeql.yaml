@@ -56,12 +56,14 @@ jobs:
     - name: Get snapshot version
       run: |
          echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | grep SNAPSHOT|  sed 's/-SNAPSHOT//') > snapshot.txt 
-         
+
       
     - name: print snapshot version
       run: |
         echo "springboot-images-new-$(cat snapshot.txt).jar"
+        echo "mkdir -p $(cat snapshot.txt)"
         cp -r snapshot.txt target
+        ls -lrth
         
     - name: current file
       run: |
@@ -69,10 +71,7 @@ jobs:
        ls -lrth
        cd target && ls -lrth
        
-    - name: create folder
-      run: |
-        mkdir 0.0.1
-        ls -lrth
+    
       
   
         
