@@ -61,7 +61,7 @@ jobs:
     - name: print snapshot version
       run: |
         echo "springboot-images-new-$(cat snapshot.txt).jar"
-        echo "mkdir -p $(cat snapshot.txt)"
+        mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
         ls -lrth
         
