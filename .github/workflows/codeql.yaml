@@ -55,7 +55,7 @@ jobs:
       
     - name: Get snapshot version
       run: |
-         echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | grep SNAPSHOT) > snapshot.txt 
+         echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | grep SNAPSHOT|  sed 's/-SNAPSHOT//') > snapshot.txt 
          
       
     - name: print snapshot version
@@ -68,7 +68,6 @@ jobs:
        pwd
        ls -lrth
        cd target && ls -lrth
-       echo $(sed 's/-SNAPSHOT//g' sanpshot.txt)
      
   
         
