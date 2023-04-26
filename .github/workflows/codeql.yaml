@@ -64,9 +64,9 @@ jobs:
         mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
         mv $(cat snapshot.txt) target
+        ls -lrth
         cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
-        cd target && mv springboot-images-new-$(cat snapshot.txt).jar $(cat snapshot.txt)
-        cd target && ls -lrth
+        ls -lrth
         
     - name: current file
       run: |
