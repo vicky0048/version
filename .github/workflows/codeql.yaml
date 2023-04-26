@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CURRENT_VERSION: 0.0.1
-      CURRENT_VERSION_1: "$new_version"
+      
     
     strategy:
       fail-fast: false
@@ -25,7 +25,7 @@ jobs:
       id: version
       run: |
         new_version=$(echo $CURRENT_VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-        echo "::set-output name=new_version::$new_version
+        echo "::set-output name=new_version::$new_version"
 
     - name: Use new version
       run: |
