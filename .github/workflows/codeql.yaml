@@ -25,15 +25,15 @@ jobs:
     - name: Get latest artifact version
       id: get_artifact_version
       run: |
-        latest_artifact_uri=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq -r '.properties.version')
-        if [ -z "$latest_artifact_uri" ]
-        then
-            echo "No artifacts found. Using default version."
-            echo "::set-env name=ARTIFACT_VERSION::0.0.1"
-        else
-            artifact_version=$(echo $latest_artifact_uri | sed 's/.*\///;s/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/')
-            echo "Artifact version: $artifact_version"
-            echo "::set-env name=ART
+        curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq -r '.properties.version'
+      #  if [ -z "$latest_artifact_uri" ]
+      #  then
+      #      echo "No artifacts found. Using default version."
+      #      echo "::set-env name=ARTIFACT_VERSION::0.0.1"
+      #  else
+      #      artifact_version=$(echo $latest_artifact_uri | sed 's/.*\///;s/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/')
+      #      echo "Artifact version: $artifact_version"
+      #      echo "::set-env name=ART
    
     - name: Checkout code
       uses: actions/checkout@v2
