@@ -83,6 +83,7 @@ jobs:
             cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
             curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/    
         else
+           current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/$(cat snapshot.txt)/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
            echo found_version
            echo "$current_version"
         new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
