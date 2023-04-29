@@ -79,10 +79,10 @@ jobs:
         ls -lrth
         cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
         #mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
-        cd $(cat snapshot.txt) && ls -lrth
+        #cd $(cat snapshot.txt) && ls -lrth
         
     - name: Publish to JFrog Artifactory
-      run: cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)
+      run: cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
         
         
         
