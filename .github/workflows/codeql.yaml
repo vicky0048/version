@@ -32,6 +32,8 @@ jobs:
          new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
          echo $new_version > version.txt
          echo $(cat version.txt)
+         pwd
+         ls -lrth
         
       
    
@@ -68,12 +70,12 @@ jobs:
       
     - name: print snapshot version
       run: |
+        ls -lrth
         echo "springboot-images-new-$(cat version.txt).jar"
         mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
         cp -r version.txt target
         mv $(cat snapshot.txt) target
-        ls -lrth
         cd target && mv springboot-images-new.jar springboot-images-new-$(cat version.txt).jar 
         #mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
         #cd $(cat snapshot.txt) && ls -lrth
