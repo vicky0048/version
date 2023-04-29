@@ -79,8 +79,9 @@ jobs:
         then
             echo "No artifacts found. Using default version."
             echo "$current_version"
-            cp -r snapshot.txt target    
-            cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/    
+            cp -r snapshot.txt target  
+            cd target && mv springboot-images-new.jar springboot-images-new-$(cat version.txt).jar 
+            cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat version.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/    
         else
            echo found_version
            echo "$current_version"
@@ -89,7 +90,7 @@ jobs:
         echo $(cat version.txt)
         ls -lrth
         echo "springboot-images-new-$(cat version.txt).jar"
-        mkdir -p $(cat snapshot.txt)
+        #mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
         cp -r version.txt target
         mv $(cat snapshot.txt) target
@@ -97,18 +98,11 @@ jobs:
         ls -lrth
         #mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
         #cd $(cat snapshot.txt) && ls -lrth
+        echo $(cat snapshot.txt)
         cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat version.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
         fi
         
-        
-        
-    - name: current file
-      run: |
-       cd target/$(cat snapshot.txt) 
-       ls -lrth 
-       pwd
-       
-  #  
+      
       
   
         
