@@ -31,7 +31,8 @@ jobs:
          echo $current_version
          new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
          echo $new_version > version.txt
-         echo "::set-output name=new_version::$new_version"
+         echo $(cat version.txt)
+        
       
    
     - name: Checkout code
