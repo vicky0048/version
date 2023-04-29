@@ -26,17 +26,12 @@ jobs:
     - name: Get latest artifact version
       id: get_artifact_version
       run: |
-         res=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+         current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
          #res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
-         echo $res
-      #  if [ -z "$latest_artifact_uri" ]
-      #  then
-      #      echo "No artifacts found. Using default version."
-      #      echo "::set-env name=ARTIFACT_VERSION::0.0.1"
-      #  else
-      #      artifact_version=$(echo $latest_artifact_uri | sed 's/.*\///;s/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/')
-      #      echo "Artifact version: $artifact_version"
-      #      echo "::set-env name=ART
+         echo $current_version
+         new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+         echo $new_version 
+      
    
     - name: Checkout code
       uses: actions/checkout@v2
@@ -45,9 +40,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-        
-   # - name: Increment version
-   #   run: mvn versions:set -DnewVersion=$(date +%H.%M.%S)-SNAPSHOT   
+         
     
     - name: Build with Maven
       run: mvn clean install
@@ -62,9 +55,6 @@ jobs:
     - name: Get snapshot version
       run: mvn help:evaluate -Dexpression=project.version | grep SNAPSHOT
       id: snapshot-version  
-      
-   # - name: ser variable for backup folder
-   #   run: echo "R1=R1.0" >> $GITHUB_ENV
     
    # - name: create directory
    #   run: mkdir -p target/$R1
