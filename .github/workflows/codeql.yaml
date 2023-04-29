@@ -10,7 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      CURRENT_VERSION: 0.0.1
+      JFROG_REPO_URL: https://vicky123.jfrog.io/artifactory/maven-repo/
+      ARTIFACT_PATH: maven-repo/0.0.1/
       
     
     strategy:
@@ -21,19 +22,19 @@ jobs:
         language: ['java']
     
     steps:
-    - name: Increment version
-      id: version
+    - name: Get latest artifact version
+      id: get_artifact_version
       run: |
-        new_version=$(echo $CURRENT_VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-        echo "::set-output name=new_version::$new_version"
-
-    - name: Use new version
-      run: |
-        echo "New version is ${{steps.version.outputs.new_version}}"
-   # - name: Print workflow number
-   #   run: |
-   #       echo "Workflow run number: ${{ github.run_number }}"
-   #       echo "Branch name: ${{ github.event.ref }}"
+        latest_artifact_uri=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "$JFROG_REPO_URL/api/storage/$ARTIFACT_PATH?list&deep=1" | jq -r '.children[] | select(.folder == false) | .uri')
+        if [ -z "$latest_artifact_uri" ]
+        then
+            echo "No artifacts found. Using default version."
+            echo "::set-env name=ARTIFACT_VERSION::0.0.1"
+        else
+            artifact_version=$(echo $latest_artifact_uri | sed 's/.*\///;s/\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/')
+            echo "Artifact version: $artifact_version"
+            echo "::set-env name=ART
+   
     - name: Checkout code
       uses: actions/checkout@v2
     
