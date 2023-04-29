@@ -73,7 +73,8 @@ jobs:
         pwd
         ls -lrth
         #curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
-        current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.2/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        #current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.2/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.2/?lastModified")
         if [$?!=0]
         then
             echo "No artifacts found. Using default version."
@@ -84,7 +85,6 @@ jobs:
         echo $new_version > version.txt
         echo $(cat version.txt)
         ls -lrth
-        
         echo "springboot-images-new-$(cat version.txt).jar"
         mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
