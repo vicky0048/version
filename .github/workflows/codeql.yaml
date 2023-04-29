@@ -80,7 +80,8 @@ jobs:
             echo "No artifacts found. Using default version."
             echo "$current_version"
         else
-           echo found_version 
+           echo found_version
+        fi   
         #new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
         echo $new_version > version.txt
         echo $(cat version.txt)
