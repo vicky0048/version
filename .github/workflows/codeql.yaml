@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JFROG_REPO_URL: https://vicky123.jfrog.io/artifactory/maven-repo/
-      ARTIFACT_PATH: 0.0.1
+      ARTIFACT_PATH: maven-repo/0.0.1/
       JFROG_REPOSITORY: maven-repo
       
     
