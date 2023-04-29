@@ -74,7 +74,7 @@ jobs:
         ls -lrth
         #curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
         #current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.2/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-        echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.2/?lastModified")
+        echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified")
         if [$?!=0]
         then
             echo "No artifacts found. Using default version."
