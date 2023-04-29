@@ -23,17 +23,17 @@ jobs:
         language: ['java']
     
     steps:
-    - name: Get latest artifact version
-      id: get_artifact_version
-      run: |
-         current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-         #res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
-         echo $current_version
-         new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-         echo $new_version > version.txt
-         echo $(cat version.txt)
-         pwd
-         ls -lrth
+    #- name: Get latest artifact version
+    #  id: get_artifact_version
+    #  run: |
+    #     current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+    #     #res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
+    #     echo $current_version
+    #     new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+    #     echo $new_version > version.txt
+    #     echo $(cat version.txt)
+    #     pwd
+    #     ls -lrth
         
       
    
@@ -72,12 +72,21 @@ jobs:
       run: |
         pwd
         ls -lrth
+        current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        #res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
+        echo $current_version
+        new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+        echo $new_version > version.txt
+        echo $(cat version.txt)
+        ls -lrth
+        
         echo "springboot-images-new-$(cat version.txt).jar"
         mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
         cp -r version.txt target
         mv $(cat snapshot.txt) target
         cd target && mv springboot-images-new.jar springboot-images-new-$(cat version.txt).jar 
+        ls -lrth
         #mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
         #cd $(cat snapshot.txt) && ls -lrth
         
