@@ -27,8 +27,8 @@ jobs:
       id: get_artifact_version
       run: |
          #res=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified")
-         echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
-         #echo $res
+         res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
+         echo $res1
       #  if [ -z "$latest_artifact_uri" ]
       #  then
       #      echo "No artifacts found. Using default version."
