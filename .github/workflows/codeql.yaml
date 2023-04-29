@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JFROG_REPO_URL: https://vicky123.jfrog.io/artifactory/maven-repo/
-      ARTIFACT_PATH: maven-repo/0.0.1/
+      ARTIFACT_PATH: 0.0.1
+      JFROG_REPOSITORY: maven-repo
       
     
     strategy:
@@ -25,8 +26,8 @@ jobs:
     - name: Get latest artifact version
       id: get_artifact_version
       run: |
-        curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1"?list&deep=1" \
-            | jq -r '.files[]?.uri')
+        #curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified"
+        curl -s -X GET -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "${{ env.JFROG_REPO_URL }}/api/storage/${{ env.JFROG_REPOSITORY }}/${{ env.ARTIFACT_PATH }}?list&deep=1" | jq -r '.children[].uri' | sort -r | head -n 1
       #  if [ -z "$latest_artifact_uri" ]
       #  then
       #      echo "No artifacts found. Using default version."
