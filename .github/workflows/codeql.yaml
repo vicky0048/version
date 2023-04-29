@@ -79,6 +79,7 @@ jobs:
         then
             echo "No artifacts found. Using default version."
             echo "$current_version"
+            default_version=$(cat snapshot.txt)
             cp -r snapshot.txt target  
             cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
             curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/    
