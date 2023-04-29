@@ -81,6 +81,7 @@ jobs:
             echo "$current_version"
         else
            echo found_version
+           echo "$current_version"
         fi   
         #new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
         echo $new_version > version.txt
