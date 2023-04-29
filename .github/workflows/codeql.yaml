@@ -68,17 +68,18 @@ jobs:
       
     - name: print snapshot version
       run: |
-        echo "springboot-images-new-$(cat snapshot.txt).jar"
+        echo "springboot-images-new-$(cat version.txt).jar"
         mkdir -p $(cat snapshot.txt)
         cp -r snapshot.txt target
+        cp -r version.txt target
         mv $(cat snapshot.txt) target
         ls -lrth
-        cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
+        cd target && mv springboot-images-new.jar springboot-images-new-$(cat version.txt).jar 
         #mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
         #cd $(cat snapshot.txt) && ls -lrth
         
     - name: Publish to JFrog Artifactory
-      run: cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
+      run: cd target && curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat version.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
         
         
         
