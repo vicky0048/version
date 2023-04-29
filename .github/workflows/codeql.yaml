@@ -30,7 +30,8 @@ jobs:
          #res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
          echo $current_version
          new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-         echo $new_version 
+         echo $new_version > version.txt
+         echo "::set-output name=new_version::$new_version"
       
    
     - name: Checkout code
