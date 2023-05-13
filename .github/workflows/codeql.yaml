@@ -85,7 +85,7 @@ jobs:
             cp -r snapshot1.txt target  
             cp -r snapshot.txt target
             cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot1.txt).jar 
-            curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot1.txt).jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/archive/    
+            curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot.txt).jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/archive/    
         else
            current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/dev/archive/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
            echo found_version
