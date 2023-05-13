@@ -29,5 +29,6 @@ jobs:
         echo "$current_version_new"
         curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -o springboot-images-new.jar -J -L https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/deploy/springboot-images-new.jar
         ls -lrth
-        #curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$current_version_new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/qa/archive/
-        #curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/qa/deploy/
+        cp -r springboot-images-new.jar springboot-images-new-$current_version_new.jar
+        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$current_version_new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/qa/archive/
+        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/qa/deploy/
