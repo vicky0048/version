@@ -8,9 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      JFROG_REPO_URL: https://vicky123.jfrog.io/artifactory/maven-repo/
-      #ARTIFACT_PATH: maven-repo/$(cat snapshot.txt)/
-      JFROG_REPOSITORY: maven-repo
+      JFROG_REPO_URL: https://vicky12345.jfrog.io/artifactory/mavan-repo/
+      #ARTIFACT_PATH: mavan-repo/$(cat snapshot.txt)/
+      JFROG_REPOSITORY: mavan-repo
       
     
     strategy:
@@ -24,8 +24,8 @@ jobs:
     #- name: Get latest artifact version
     #  id: get_artifact_version
     #  run: |
-    #     current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-    #     #res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
+    #     current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/0.0.1/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+    #     #res1=echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/0.0.1/?lastModified") | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+'
     #     echo $current_version
     #     new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
     #     echo $new_version > version.txt
@@ -70,9 +70,9 @@ jobs:
       run: |
         pwd
         ls -lrth
-        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
-        current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/$(cat snapshot.txt)/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }')
-        #echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/0.0.2/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} https://vicky12345.jfrog.io/artifactory/mavan-repo/$(cat snapshot.txt)/
+        current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/$(cat snapshot.txt)/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }')
+        #echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/0.0.2/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
         if [ "$current_version" == null ];
         then
             echo "No artifacts found. Using default version."
@@ -85,9 +85,9 @@ jobs:
             cp -r snapshot1.txt target  
             cp -r snapshot.txt target
             cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot1.txt).jar 
-            curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot1.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/    
+            curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot1.txt).jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/$(cat snapshot.txt)/    
         else
-           current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky123.jfrog.io/artifactory/api/storage/maven-repo/$(cat snapshot.txt)/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+           current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/$(cat snapshot.txt)/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
            echo found_version
            echo "$current_version"
         new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
@@ -104,7 +104,7 @@ jobs:
         #mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
         #cd $(cat snapshot.txt) && ls -lrth
         echo $(cat snapshot.txt)
-        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat version.txt).jar  https://vicky123.jfrog.io/artifactory/maven-repo/$(cat snapshot.txt)/
+        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat version.txt).jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/$(cat snapshot.txt)/
         fi
         
       
