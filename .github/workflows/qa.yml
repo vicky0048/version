@@ -1,4 +1,4 @@
-name: Build maven project
+name: QA deploy project
 #############
 
 on: 
