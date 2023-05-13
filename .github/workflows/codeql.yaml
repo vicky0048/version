@@ -78,11 +78,11 @@ jobs:
         echo "$snapshot_new"
         #echo $(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/0.0.2/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 
-          if [ "$current_version_new" -lt "$snapshot_new" ];
+          if [ "$current_version_new" -lt "$snapshot_new" ] || [ "$current_version" == null ];
           then
             echo "No artifacts found. Using default version."
             echo "$current_version"
-            default_version=$(cat snapshot.txt)
+            default_version=$(cat snapshot.txt) 
           #  default_version=$(echo $default_version | sed 's/\.[0-9]*$/\.1/')
           #  echo "$default_version" > snapshot1.txt
           #  echo "$(cat snapshot1.txt)"
