@@ -104,7 +104,7 @@ jobs:
         cp -r snapshot.txt target
         cp -r version.txt target
         #mv $(cat snapshot.txt) target
-        cd target && mv springboot-images-new.jar springboot-images-new-$(cat version.txt).jar 
+        cd target && cp -r springboot-images-new.jar springboot-images-new-$(cat version.txt).jar 
         ls -lrth
         #mv springboot-images-new-$(cat snapshot.txt).jar  $(cat snapshot.txt)
         #cd $(cat snapshot.txt) && ls -lrth
