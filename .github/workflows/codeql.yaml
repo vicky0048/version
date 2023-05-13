@@ -78,11 +78,11 @@ jobs:
             echo "No artifacts found. Using default version."
             echo "$current_version"
             default_version=$(cat snapshot.txt)
-            default_version=$(echo $default_version | sed 's/\.[0-9]*$/\.1/')
-            echo "$default_version" > snapshot1.txt
-            echo "$(cat snapshot1.txt)"
+          #  default_version=$(echo $default_version | sed 's/\.[0-9]*$/\.1/')
+          #  echo "$default_version" > snapshot1.txt
+          #  echo "$(cat snapshot1.txt)"
             echo "$(cat snapshot.txt)"
-            cp -r snapshot1.txt target  
+          #  cp -r snapshot1.txt target  
             cp -r snapshot.txt target
             cd target && mv springboot-images-new.jar springboot-images-new-$(cat snapshot.txt).jar 
             curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat snapshot.txt).jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/archive/    
