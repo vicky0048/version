@@ -7,10 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      JFROG_REPO_URL: https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/arvhive/
+    #env:
+    #  JFROG_REPO_URL: https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/arvhive/
       #ARTIFACT_PATH: mavan-repo/$(cat snapshot.txt)/
-      JFROG_REPOSITORY: mavan-repo/dev/arvhive
+    #  JFROG_REPOSITORY: mavan-repo/dev/arvhive
       
     
     strategy:
