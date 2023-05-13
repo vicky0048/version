@@ -1,4 +1,4 @@
-name: QA deploy project
+name: QA maven project
 #############
 
 on: 
@@ -21,25 +21,15 @@ jobs:
         language: ['java']
     
     steps:
-     - name: QA deploy
+     - name: Get latest artifact version
        run: |
         pwd
         ls -lrth
         current_version=$(curl -s -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} "https://vicky12345.jfrog.io/artifactory/api/storage/mavan-repo/dev/archive/?lastModified" | jq '.uri' | awk -F'[/"]' '{ print $(NF-1); }')
         current_version_new=$(echo "$current_version" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
         echo "$current_version_new"
-		curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -o springboot-images-new.jar -J -L https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/deploy/springboot-images-new.jar
-		ls -lrth
+        curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -o springboot-images-new.jar -J -L https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/deploy/springboot-images-new.jar
+        ls -lrth
 
         curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$current_version_new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/qa/archive/
-        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/qa/deploy/    
-        
-      
-      
-  
-        
-        
-        
-        
-        
-        
+        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/qa/deploy/
