@@ -110,6 +110,7 @@ jobs:
         #cd $(cat snapshot.txt) && ls -lrth
         echo $(cat snapshot.txt)
         curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new-$(cat version.txt).jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/archive/
+        curl -X PUT -u ${{ secrets.JF_USER }}:${{ secrets.JF_PASSWORD }} -T springboot-images-new.jar  https://vicky12345.jfrog.io/artifactory/mavan-repo/dev/deploy/
         fi
         
       
