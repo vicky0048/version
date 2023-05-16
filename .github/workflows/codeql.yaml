@@ -1,4 +1,4 @@
-name: Build maven project
+name: version
 #############
 
 on: 
