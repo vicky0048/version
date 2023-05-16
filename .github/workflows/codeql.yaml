@@ -3,8 +3,8 @@ name: version
 
 on: 
   workflow_dispatch:
-  push:
-    branches: [ master ]
+  #push:
+  #  branches: [ master ]
 
 jobs:
   build:
